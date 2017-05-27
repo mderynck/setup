@@ -1,6 +1,11 @@
+export ZPLUG_HOME=$HOME/.zplug
 
-bindkey "^[[H" beginning-of-line
-bindkey "^[[F" end-of-line
+alias ls='ls --color=auto'
+alias alsi='alsi -l -u -c1=red'
+
+bindkey "${terminfo[kdch1]}" delete-char
+bindkey "${terminfo[khome]}" beginning-of-line
+bindkey "${terminfo[kend]}" end-of-line
 bindkey "^[[A" history-substring-search-up
 bindkey "^[[B" history-substring-search-down
 
@@ -20,8 +25,8 @@ setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history 
 setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
 setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
 setopt HIST_BEEP                 # Beep when accessing nonexistent history.
+setopt COMPLETE_ALIASES          # Make alias a distinct command for completion purposes.
 
-export ZPLUG_HOME=$HOME/.zplug
 source $ZPLUG_HOME/init.zsh 
 
 zplug "plugins/git", from:oh-my-zsh
@@ -29,15 +34,21 @@ zplug "zsh-users/zsh-history-substring-search"
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-completions"
-zplug "moby/moby/contrib/completion/zsh", from:"github", use:"_docker"
 
 POWERLEVEL9K_MODE='nerdfont-complete'
 
+#POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(icons_test)
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir dir_writable vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs history time)
+POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+POWERLEVEL9K_RPROMPT_ON_NEWLINE=true
+POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="┏"
+POWERLEVEL9K_MULTILINE_SECOND_PROMPT_PREFIX="┗ "
 
-#POWERLEVEL9K_HOME_FOLDER_ABBREVIATION="$(print_icon 'HOME_ICON')"
+POWERLEVEL9K_DIR_PATH_SEPARATOR="%F{yellow}  %F{black}"
 
 zplug "bhilburn/powerlevel9k", as:theme
+
+zstyle ':completion:*' menu select
 
 zplug load
