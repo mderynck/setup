@@ -1,7 +1,8 @@
+export VISUAL=nano
+
 export ZPLUG_HOME=$HOME/.zplug
 
 alias ls='ls --color=auto'
-alias alsi='alsi -l -u -c1=red'
 
 bindkey "${terminfo[kdch1]}" delete-char
 bindkey "${terminfo[khome]}" beginning-of-line
@@ -26,6 +27,7 @@ setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording en
 setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
 setopt HIST_BEEP                 # Beep when accessing nonexistent history.
 setopt COMPLETE_ALIASES          # Make alias a distinct command for completion purposes.
+unsetopt NO_MATCH                # Disable print error if a pattern for filename generation has no matches print error
 
 source $ZPLUG_HOME/init.zsh 
 
